@@ -1,25 +1,33 @@
-# Hospital Management System
+# Hospital Management System (Admin Dashboard)
 
-## Project Overview
-This Hospital Management System is a web-based application designed to streamline hospital operations such as managing patient records, appointments, staff details, and billing. It is developed using **PHP, HTML, CSS, JavaScript, and SQL**.
+A simple hospital management system built using PHP and MySQL. This system allows the admin to manage patient registrations, bills, statuses, and discharge details through a dashboard.
 
 ## Features
-- **Patient Management**: Add, update, view, and delete patient details.
-- **Appointment Scheduling**: Manage and track appointments seamlessly.
-- **Staff Management**: Maintain records of doctors, nurses, and other hospital staff.
-- **Billing System**: Generate and manage billing information for patients.
-- **Dashboard**: An intuitive dashboard to oversee hospital operations.
 
-## Technologies Used
-- **Frontend**:
-  - HTML: Structure of the application.
-  - CSS: Styling and layout.
-  - JavaScript: Interactive elements and dynamic features.
-- **Backend**:
-  - PHP: Server-side scripting for functionality.
-  - SQL: Database management to store and retrieve data.
+- **Patient Registration:** Add new patients to the system.
+- **View Patients:** Retrieve and display patient details.
+- **Billing Management:** Add, view and delete bills for a patient.
+- **Patient Status Update:** Modify the current status of a patient.
+- **Discharge Management:** Discharge patients once treatment is complete.
 
 ## Installation
+
 1. Clone the repository:
-   ```bash
-   git clone <repository_link>
+   ```sh
+   git clone https://github.com/your-username/hospital-management.git
+
+2. Navigate to the project directory
+   ```sh
+   cd hospital-management
+
+3. Setup the database
+- create database and table for storing patient data and another table for storing patient bills.
+4. Deploy the project on local server(e.g., XAMPP, WAMPP, LAMP).
+
+##Tech Stacks
+- Backend: PHP
+- Database: MySQL
+- Frontend: HTML, CSS, JavaScript
+
+##Author
+Developed by Siva S.
