@@ -24,10 +24,10 @@ A simple hospital management system built using PHP and MySQL. This system allow
 - create database and table for storing patient data and another table for storing patient bills.
 4. Deploy the project on local server(e.g., XAMPP, WAMPP, LAMP).
 
-##Tech Stacks
+## Tech Stacks
 - Backend: PHP
 - Database: MySQL
 - Frontend: HTML, CSS, JavaScript
 
-##Author
+## Author
 Developed by Siva S.
