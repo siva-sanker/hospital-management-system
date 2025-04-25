@@ -30,4 +30,8 @@ A simple hospital management system built using PHP and MySQL. This system allow
 - Frontend: HTML, CSS, JavaScript
 
 ## Author
+<<<<<<< HEAD
 Developed by Siva S.
+=======
+Developed by Siva S.
+>>>>>>> 876cbac (changed readme)
