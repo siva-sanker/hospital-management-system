@@ -106,7 +106,7 @@
                     echo $_SESSION['username'];
                 } 
                 else {
-                    echo "Please log in.";
+                    echo "<script>alert('Please Login');window.location.href='login.php';</script>";
                 }
         ?>
     </span>
@@ -165,7 +165,6 @@ if (mysqli_num_rows($ans) > 0) {
         <th>Blood group</th>
         <th>Email</th>
         <th>Total Bill Amount</th>
-        <th>Status</th>
         <th>Actions</th>
     </tr>";
     while ($row = mysqli_fetch_assoc($ans)) {
@@ -174,10 +173,10 @@ if (mysqli_num_rows($ans) > 0) {
                 <td>{$row['age']}</td>
                 <td>{$row['phone']}</td>
                 <td>{$row['address']}</td>
-                <td>{$row['bloodgroup']}</td>
+                <td style='text-transform:uppercase;'>{$row['bloodgroup']}</td>
                 <td style='text-transform:lowercase;'>{$row['email']}</td>
                 <td>{$row['amount']}</td>
-                <td>{$row['status']}</td>
+
                 <td>
                     <form action='updatestatus.php' method='post' class='modify'>
                         <input type='hidden' name='id' value='{$row['id']}'>
@@ -200,7 +199,7 @@ mysqli_close($conn);
 
 <script>
 function confirmDelete() {
-    let confirmResult = confirm("Are you sure you want to delete this patient?");
+    let confirmResult = confirm("Are you sure you want to discharge this patient?");
     return confirmResult; // Submits form only if true
 }
 </script>

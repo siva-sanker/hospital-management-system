@@ -7,7 +7,11 @@ $conn = mysqli_connect($host, $user, $pwd, $db);
 ?>
 
 <?php 
-  session_start();?>
+  session_start();
+  if (!isset($_SESSION['username'])) {
+    echo "<script>alert('Please Login');window.location.href='login.php';</script>";
+} 
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -66,7 +70,7 @@ $conn = mysqli_connect($host, $user, $pwd, $db);
             text-transform: uppercase;
             font-weight: 700;
         }
-        input[type='submit']{
+        button{
             padding: 10px 10px;
             background-color:rgba(255, 0, 0, 0.64);
             outline: none;
@@ -74,7 +78,7 @@ $conn = mysqli_connect($host, $user, $pwd, $db);
             border: none;
             color: white;
         }
-        input[type='submit']:hover{
+        button:hover{
             background-color:red;
             transition: 0.5s ease;
         }
@@ -119,17 +123,15 @@ $conn = mysqli_connect($host, $user, $pwd, $db);
                 $total = 0;
                 while ($bill = mysqli_fetch_assoc($bills)) {
                     $total += $bill['amount'];
-                    echo "<tr>
-                            <td>{$bill['bill_name']}</td>
-                            <td>{$bill['amount']}</td>
-                            <td>{$bill['date_added']}</td>
-                            <td>
-                            <form action='deletebill.php' method='post' onsubmit='return removePatient()'>
-                                <input type='hidden' name='bid' value='{$bill['id']}'>
-                                <input type='hidden' name='pid' value='{$id}'>
-                                <input type='submit' name='delete' value='Delete Bill'>
-                            </form></td>
-                          </tr>";
+                    echo '<tr>
+                                <td>' . $bill['bill_name'] . '</td>
+                                <td>' . $bill['amount'] . '</td>
+                                <td>' . $bill['date_added'] . '</td>
+                                <td>
+                                    <button onclick="removePatient(' . $id . ', ' . $bill['id'] . ')">Delete Bill</button>
+                                </td>
+                            </tr>';
+
                 }
 
                 echo "<tr>
@@ -148,14 +150,30 @@ $conn = mysqli_connect($host, $user, $pwd, $db);
 
     <a href="register.php" class="back">← Back to Home</a>
 
-    <script>
-        function removePatient(){
-            let confirmMessage=confirm('Did the patient pay the bill?');
-            if(confirmMessage){
-                confirmMessage2=confirm('Can I delete this bill?');
+<script>
+    function removePatient(pid, bid) {
+        let confirmMessage = confirm('Did the patient pay the bill?');
+        
+        if (!confirmMessage) {
+            // Redirect to bill page with patient ID
+            window.location.href = 'billpage.php?id=' + pid;
+            return false;
+        } else {
+            let confirmMessage2 = confirm('Can I delete this bill?');
+            
+            if (confirmMessage2) {
+                // Redirect to deletebill.php with both patient and bill IDs
+                window.location.href = 'deletebill.php?pid=' + pid + '&bid=' + bid;
+                return false;
+            } else {
+                // Go back to bill page
+                window.location.href = 'billpage.php?id=' + pid;
+                return false;
             }
         }
-    </script>
+    }
+</script>
+
 </body>
 
 </html>

@@ -9,9 +9,11 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-if (isset($_POST['delete']) && isset($_POST['bid']) && isset($_POST['pid'])) {
-    $bill_id = intval($_POST['bid']);
-    $patient_id = intval($_POST['pid']);
+$pid = $_GET['pid'];
+$bid = $_GET['bid'];
+if (isset($pid) && isset($bid)) {
+    $bill_id = $bid;
+    $patient_id = $pid;
 
     // Step 1: Get the bill amount
     $query = "SELECT amount FROM bills WHERE id = $bill_id";

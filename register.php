@@ -132,7 +132,7 @@
                     echo $_SESSION['username'];
                 } 
                 else {
-                    echo "Please log in.";
+                    echo "<script>alert('Please Login');window.location.href='login.php';</script>";
                 }
         ?>
     </span>
@@ -188,6 +188,7 @@
         $mob=$_POST['phone'];
         $mail=$_POST['mail'];
         // echo "$name<br>$age<br>$bloodgroup<br>$address<br>$mob<br>$mail";
+        // die;
         $sql2="select * from patient where email='$mail'";
         $result=mysqli_query($conn,$sql2);
         if(mysqli_num_rows($result)>0){
@@ -204,7 +205,7 @@
                 }
             }
             catch(mysqli_sql_exception){
-                echo'problem';
+                echo'Invalid Datatype';
             }
         }
 

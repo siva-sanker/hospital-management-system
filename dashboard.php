@@ -98,7 +98,7 @@
                           echo $_SESSION['username'];
                       } 
                       else {
-                          echo "Please log in.";
+                          echo "<script>alert('Please Login');window.location.href='login.php';</script>";
                       }
               ?>
       </span>
@@ -108,6 +108,7 @@
     <div class="main">
       <a href="register.php" class="main-a">Register Patient</a>
       <a href="viewpatient.php" class="main-a">View Patient</a>
+      <a href="register_doctor.php" class="main-a">Register doctor</a>
   </div>
 </body>
 </html>

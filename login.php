@@ -1,3 +1,46 @@
+    <?php
+        $errorMsg="";
+        $host = 'localhost';
+        $user = 'root';
+        $password = '';
+        $dbname = 'sivadb';
+        $conn = mysqli_connect($host, $user, $password, $dbname);
+        if ($conn) {
+            echo "<br>";
+        } else {
+            $errorMsg="Failed to Connect DB";
+        }
+
+        if (isset($_POST['login'])) {
+            $uname = $_POST['username'];
+            $pwd = $_POST['password'];
+
+            $sql = "SELECT * FROM users WHERE name='$uname' AND password='$pwd'";
+            $result = mysqli_query($conn, $sql);
+
+            if (mysqli_num_rows($result) == 1) {
+                $row = mysqli_fetch_assoc($result);
+                $role = $row['role'];
+
+                session_start();
+                $_SESSION['username'] = $uname;
+                $_SESSION['role'] = $role;
+
+                if ($role == 'admin') {
+                    header("Location: dashboard.php");
+                    exit();
+                } elseif ($role == 'doctor') {
+                    header("Location: doctor_dashboard.php");
+                    exit();
+                } else {
+                    $errorMsg='Unkonwn role';
+                }
+            } else {
+                $errorMsg="Invalid username or password.";
+            }
+        }
+    ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,6 +66,7 @@
             height: 100vh;
         }
         .main {
+            /* display: block; */
             /* background: #ffffff; */
             padding: 2.5rem;
             border-radius: 8px;
@@ -30,7 +74,7 @@
             /* border: 1px solid red; */
             width: 100%;
             max-width: 700px;
-            margin-left: 5%;
+            margin:auto;
         }
 
         form h1 {
@@ -81,53 +125,61 @@
         input[type="submit"]:hover {
             background-color: #555;
         }
-        .message{
-            margin-left: 3%;
-            color: wheat;
-            text-transform:capitalize;
+        .message {
+            /* background-color: rgba(255, 0, 0, 0.2);  */
+            /* border: 1px solid red; */
+            padding: 1rem;
+            /* margin-bottom: 1rem; */
+            color: red;
+            text-align: center;
+            font-weight: bold;
+            font-size: 2em;
+            border-radius: 5px;
+            max-width: 700px;
+            width: 100%;
+            position: absolute;
+            top: 5%;
+        }
+
+        .role{
+            color: white;
+            /* border: 1px solid white; */
+            text-align: center;
+        }
+        .role input{
+            margin-left: 5%;
+        }
+        .admin,.doctor{
+            display: inline;
+            /* border: 1px solid black; */
         }
     </style>
 </head>
 <body>
+    <div class="message">
+        <?php echo $errorMsg; ?>
+    </div>
     <div class="main">
+        
         <form action="" method="post">
             <h1>Login</h1>
+
             <div class="inputs">
+
                 <input type="text" name="username" placeholder="Username"> 
                 <input type="password" name="password" placeholder="Password">
 
+                <!-- <div class="role">
+                    <div class="admin"><input type="radio" name="role" value="admin" >Admin</div>
+                    <div class="doctor"><input type="radio" name="role" value="doctor">Doctor</div>
+                </div> -->
+
                 <input type="submit" name=login value="Login">
             </div>
+
         </form>
     </div>
 
-    <?php
-        $host='localhost';
-        $user='root';
-        $password='';
-        $dbname='sivadb';
-        $conn=mysqli_connect($host,$user,$password,$dbname);
-        echo"<div class='message'>";
-        if($conn){
-            echo"<br>";
-        }
-        else{
-            echo'failed to connect';
-        }
-        if(isset($_POST['login'])){
-            $uname=$_POST['username'];
-            $pwd=$_POST['password'];
-            if(($uname=='admin' && $pwd=='123')){
-                session_start();
-                $_SESSION['username'] = $uname;
-                echo"<script>alert('Welcome $uname');window.location.href='dashboard.php';</script>";
-            }
-            else{
-                echo"<script>alert('Invalid Credentials');window.location.href='login.php';</script>";
-            }
-        
-        }
-        echo"</div>";
-    ?>
+
 </body>
 </html>
